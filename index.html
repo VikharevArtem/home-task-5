@@ -1,13 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home task 5</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="root">Всем привет</div>
+  <header>
+    <h1>&#128681; TODO API Client</h1>
+    <p>Тестовый клиент для работы с API задач</p>
+  </header>
+  <main>
+    <!-- GET /tasks -->
+    <section class="request-section" id="getTasksSection">
+      <h2>&#128203; Получить все задачи</h2>
+      <div class="filters">
+        <label>
+          Поиск по названию: <input type="text" id="nameLikeFilter" placeholder="Часть названия...">
+        </label>
+        <label>
+          Важные: <input type="checkbox" id="isImportantFilter">
+        </label>
+        <label>
+          Завершенные: <input type="checkbox" id="isCompletedFilter">
+        </label>
+      </div>
+      <button onclick="getTasks()">Получить задачи</button>
+      <div id="tasksList" class="tasks-list"></div>
+    </section>
+
+    <!-- POST /tasks -->
+    <section class="request-section" id="createTaskSection">
+      <h2>&#10133; Создать задачу</h2>
+      <form id="createTaskForm">
+        <label>Название: <input type="text" id="createName" name="name" placeholder="Название задачи" required></label>
+        <label>Описание: <input type="text" id="createInfo" name="info" placeholder="Описание (опционально)"></label>
+        <label>Важная: <input type="checkbox" id="createIsImportant" name="isImportant"></label>
+        <label>Завершена: <input type="checkbox" id="createIsCompleted" name="isCompleted"></label>
+        <button type="submit">Создать задачу</button>
+      </form>
+      <div id="createTaskResult" class="single-task-result"></div>
+    </section>
+
+    <!-- GET /tasks/{id} -->
+    <section class="request-section" id="getTaskByIdSection">
+      <h2>&#128269; Получить задачу по ID</h2>
+      <label>
+        ID задачи:
+        <select id="taskIdSelect" disabled>
+          <option value="">— Загрузите задачи —</option>
+        </select>
+      </label>
+      <button onclick="getTaskById()" id="getTaskByIdButton">Получить задачу</button>
+      <div id="getTaskByIdResult" class="single-task-result"></div>
+    </section>
+
+    <!-- PATCH /tasks/{id} -->
+    <section class="request-section" id="updateTaskSection">
+      <h2>&#9999;&#65039; Обновить задачу</h2>
+      <label>
+        ID задачи:
+        <select id="updateTaskIdSelect" disabled>
+          <option value="">— Загрузите задачи —</option>
+        </select>
+      </label>
+      <div id="updateTaskResult" class="single-task-result"></div>
+      <form id="updateTaskForm" hidden>
+        <label>Измените название: <input type="text" id="updateName" placeholder="Новое название" name="name"></label>
+        <label>Измените описание: <input type="text" id="updateInfo" placeholder="Новое описание" name="info"></label>
+        <label>Важная: <input type="checkbox" id="updateIsImportant" name="isImportant"></label>
+        <label>Завершена: <input type="checkbox" id="updateIsCompleted" name="isCompleted"></label>
+        <button onclick="updateTask()" id="updateTaskButton">Обновить задачу</button>
+      </form>
+    </section>
+
+    <!-- DELETE /tasks/{id} -->
+    <section class="request-section" id="deleteTaskSection">
+      <h2>&#128465;&#65039; Удалить задачу</h2>
+      <label>
+        ID задачи:
+        <select id="deleteTaskIdSelect" disabled>
+          <option value="">— Загрузите задачи —</option>
+        </select>
+      </label>
+      <div id="deleteTaskResult" class="single-task-result"></div>
+      <button onclick="deleteTask()" id="deleteTaskButton">Удалить задачу</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 | Артем Вихарев</p>
+  </footer>
+
     <script src="./lib/index.js"></script>
 </body>
 </html>
